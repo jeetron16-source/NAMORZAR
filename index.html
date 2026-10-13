@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<title>PREPTRON — Ebook Library</title>
+
+<!-- Fonts: Geist-style UI + Manrope + Poppins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Phosphor Icons -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<style>
+:root{
+  --bg:#f2f0e6;
+  --surface:#ffffff;
+  --surface-2:#f0f2f5;
+  --text:#111318;
+  --muted:#707784;
+  --line:#e4e7ec;
+  --brand:#111318;
+  --accent:#2f8063;
+  --accent-2:#a8c8b8;
+  --telegram:#229ed9;
+  --shadow:0 14px 40px rgba(17,19,24,.08);
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  background:#e9ebef;
+  color:var(--text);
+  font-family:'Manrope',sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{
+  width:100%;
+  max-width:520px;
+  min-height:100vh;
+  margin:auto;
+  background:var(--bg);
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 0 60px rgba(0,0,0,.08);
+}
+
+/* Header */
+.header{
+  position:sticky;
+  top:0;
+  z-index:30;
+  padding:calc(18px + env(safe-area-inset-top)) 18px 14px;
+  background:rgba(245,246,248,.92);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(228,231,236,.85);
+}
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.brand-left{display:flex;align-items:center;gap:11px}
+.logo{
+  width:40px;height:40px;border-radius:13px;
+  object-fit:cover;
+  background:#111318;
+  box-shadow:0 8px 20px rgba(17,19,24,.15);
+  flex-shrink:0;
+}
+.logo-fallback{
+  width:40px;height:40px;border-radius:13px;
+  background:#111318;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:Poppins,sans-serif;font-weight:800;font-size:15px;
+}
+.brand-name{
+  font-family:Poppins,sans-serif;
+  font-size:20px;font-weight:800;letter-spacing:-.5px;
+}
+.brand-tag{font-size:10.5px;color:var(--muted);margin-top:1px}
+.menu-btn{
+  width:40px;height:40px;border-radius:13px;flex-shrink:0;
+  border:1px solid var(--line);background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text);font-size:19px;
+}
+
+/* Main */
+main{padding:20px 17px 45px}
+.hero{
+  padding:21px;
+  border-radius:26px;
+  color:#fff;
+  background:
+    radial-gradient(circle at 90% 0%,rgba(47,128,99,.12),transparent 34%),
+    linear-gradient(145deg,#f4f2e9,#eeece1);
+  color:#111318;
+  border:1px solid #e1dfd4;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{
+  content:"";
+  position:absolute;inset:auto -50px -80px auto;
+  width:170px;height:170px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 22px rgba(255,255,255,.025),0 0 0 44px rgba(255,255,255,.018);
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 9px;border-radius:999px;
+  background:rgba(47,128,99,.08);
+  border:1px solid rgba(47,128,99,.12);
+  color:#39785f;
+  font-size:10px;font-weight:800;letter-spacing:.6px;
+  text-transform:uppercase;
+}
+.eyebrow i{color:var(--accent);font-size:14px}
+.hero h1{
+  margin:14px 0 7px;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(31px,8vw,43px);line-height:1.08;
+  letter-spacing:-1.1px;color:#111318;
+}
+.hero p{margin:0;color:#66645e;font-size:13px;line-height:1.7;max-width:360px}
+.search{
+  margin-top:17px;
+  display:flex;align-items:center;gap:9px;
+  padding:12px 14px;border-radius:14px;
+  background:#fff;
+  border:1px solid #d8d3c7;
+}
+.search i{font-size:18px;color:#88857b}
+.search input{
+  width:100%;border:0;outline:0;background:transparent;color:#111318;
+  font-size:13px;
+}
+.search input::placeholder{color:#88857b}
+
+/* In-page (light) search bar used on the Search page */
+.search-page{
+  display:flex;align-items:center;gap:9px;
+  padding:12px 14px;border-radius:14px;
+  background:var(--surface);border:1px solid var(--line);
+  margin-bottom:18px;
+}
+.search-page i{font-size:18px;color:var(--muted)}
+.search-page input{width:100%;border:0;outline:0;background:transparent;color:var(--text);font-size:13px}
+.search-page input::placeholder{color:var(--muted)}
+
+.section-title{
+  display:flex;align-items:end;justify-content:space-between;
+  margin:25px 2px 10px;
+}
+.section-title h2{
+  margin:0;font-family:Poppins,sans-serif;font-size:15px;
+  letter-spacing:-.2px;
+}
+.section-title span{font-size:10.5px;color:var(--muted);font-weight:700}
+
+.categories{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.category{
+  border:1px solid var(--line);
+  background:var(--surface);
+  border-radius:19px;
+  padding:15px;
+  text-align:left;
+  transition:.18s ease;
+  box-shadow:0 6px 18px rgba(17,19,24,.035);
+  transform-origin:50% 100%;
+  animation:shelfIn .5s cubic-bezier(.22,.85,.32,1) both;
+}
+
+/* Bookshelf-style entrance: cards slide up and settle like books
+   being placed on a shelf. Stagger with inline animation-delay. */
+@keyframes shelfIn{
+  0%{opacity:0;transform:translateY(22px) rotate(-4deg) scale(.92)}
+  55%{opacity:1;transform:translateY(-3px) rotate(1.5deg) scale(1.02)}
+  100%{opacity:1;transform:translateY(0) rotate(0deg) scale(1)}
+}
+@media(prefers-reduced-motion:reduce){
+  .category,.ebook{animation:none}
+}
+.category:active{transform:scale(.98)}
+.category-top{display:flex;justify-content:space-between;align-items:center}
+.category-icon{
+  width:40px;height:40px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface-2);font-size:20px;
+}
+.category-arrow{color:#9aa1ad;font-size:16px}
+.category h3{margin:13px 0 4px;font-family:Poppins,sans-serif;font-size:14px}
+.category p{margin:0;color:var(--muted);font-size:10.5px;line-height:1.45}
+.category .count{display:block;margin-top:9px;font-size:10px;font-weight:800;color:#9298a3}
+
+.feature{
+  margin-top:14px;padding:16px;
+  border:1px solid var(--line);background:var(--surface);
+  border-radius:19px;display:flex;gap:13px;align-items:center;
+}
+.feature-icon{
+  width:45px;height:45px;border-radius:14px;background:#111318;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;
+}
+.feature b{font-family:Poppins,sans-serif;font-size:12.5px}
+.feature p{margin:3px 0 0;color:var(--muted);font-size:10.5px;line-height:1.4}
+
+/* Breadcrumb */
+.crumb{
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:0 0 16px;font-size:11.5px;color:var(--muted);
+}
+.crumb .seg{cursor:pointer}
+.crumb .seg:hover{color:var(--text)}
+.crumb .seg.current{color:var(--text);font-weight:800;cursor:default}
+.crumb .sep{opacity:.5}
+
+/* Browse */
+.page-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.back{
+  width:38px;height:38px;border-radius:12px;border:1px solid var(--line);
+  background:var(--surface);display:flex;align-items:center;justify-content:center;
+  color:var(--text);font-size:18px;flex-shrink:0;
+}
+.page-title h1{margin:0;font-family:Poppins,sans-serif;font-size:21px;letter-spacing:-.4px}
+.page-title p{margin:2px 0 0;color:var(--muted);font-size:10.5px}
+
+.subcategories{display:flex;gap:8px;overflow:auto;padding-bottom:4px;margin-bottom:16px;scrollbar-width:none}
+.subcategories::-webkit-scrollbar{display:none}
+.subchip{
+  flex-shrink:0;border:1px solid var(--line);background:var(--surface);
+  color:var(--muted);border-radius:999px;padding:8px 12px;
+  font-size:11px;font-weight:800;
+}
+.subchip.active{background:#111318;color:#fff;border-color:#111318}
+
+.ebook-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.ebook{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:19px;overflow:hidden;box-shadow:0 7px 22px rgba(17,19,24,.045);
+  cursor:pointer;
+  transform-origin:50% 100%;
+  animation:shelfIn .5s cubic-bezier(.22,.85,.32,1) both;
+}
+.cover-wrap{padding:11px 11px 0}
+.cover{
+  aspect-ratio: .76;
+  width:100%;border-radius:14px;overflow:hidden;position:relative;
+  background:linear-gradient(145deg,#202531,#111318);
+}
+.cover img{width:100%;height:100%;display:block;object-fit:cover}
+.cover-placeholder{
+  width:100%;height:100%;padding:15px;color:#fff;
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:
+    radial-gradient(circle at 80% 15%,rgba(255,182,39,.35),transparent 35%),
+    linear-gradient(145deg,#262c38,#0e1014);
+}
+.cover-placeholder small{font-size:8px;font-weight:800;letter-spacing:1px;color:var(--accent)}
+.cover-placeholder strong{font-family:Poppins,sans-serif;font-size:18px;line-height:1.05}
+.cover-placeholder span{font-size:8px;color:rgba(255,255,255,.62)}
+.ebook-body{padding:12px 13px 14px}
+.ebook-title{
+  font-family:Poppins,sans-serif;font-size:12.5px;font-weight:700;line-height:1.3;
+}
+.ebook-author{font-size:9.5px;color:var(--muted);margin-top:4px}
+.ebook-meta{display:flex;justify-content:space-between;align-items:center;margin-top:11px}
+.badge{
+  font-size:8.5px;font-weight:800;padding:5px 7px;border-radius:7px;
+  background:#f1f3f5;color:#6e7480;
+}
+.download-mini{
+  width:29px;height:29px;border:0;border-radius:9px;
+  background:#111318;color:#fff;display:flex;align-items:center;justify-content:center;
+}
+.download-mini i{font-size:15px}
+
+/* Detail */
+.detail-card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:23px;padding:15px;box-shadow:var(--shadow);
+}
+.detail-cover{
+  width:150px;aspect-ratio:.76;margin:0 auto 17px;
+  border-radius:15px;overflow:hidden;background:#111318;
+  box-shadow:0 18px 35px rgba(17,19,24,.18);
+}
+.detail-cover img{width:100%;height:100%;object-fit:cover}
+.detail-cover .cover-placeholder strong{font-size:24px}
+.detail-info{text-align:center}
+.detail-info h1{
+  margin:0;font-family:Poppins,sans-serif;font-size:21px;line-height:1.2;
+}
+.detail-info .author{margin:6px 0 0;color:var(--muted);font-size:11px}
+.tags{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:12px 0}
+.tag{padding:5px 8px;border-radius:7px;background:#f0f2f5;color:#666d78;font-size:8.5px;font-weight:800}
+.description{
+  margin:15px 0;text-align:left;padding:14px;
+  border-radius:14px;background:#f7f8fa;color:#646b77;
+  font-size:11.5px;line-height:1.6;
+}
+.description p{margin:0 0 10px}
+.description p:last-child{margin-bottom:0}
+.download-btn{
+  width:100%;border:0;border-radius:13px;padding:14px;
+  background:#111318;color:#fff;font-family:Poppins,sans-serif;
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 9px 22px rgba(17,19,24,.15);
+}
+.download-btn i{font-size:18px;color:#69c8f2}
+.telegram-note{
+  margin-top:9px;text-align:center;font-size:9.5px;color:var(--muted);
+}
+
+/* Empty/search */
+.empty{
+  text-align:center;padding:45px 20px;color:var(--muted);
+}
+.empty i{font-size:35px;display:block;margin-bottom:9px}
+.empty p{font-size:12px;line-height:1.5}
+
+
+/* Footer and policy refinements */
+.footer-top{display:flex;justify-content:center;align-items:baseline;gap:5px;flex-wrap:wrap}
+.footer-top strong{font-size:1.18em;font-weight:850;letter-spacing:-.035em;color:var(--ink,#171a1f)}
+.footer-top .copyright b{font-weight:850;color:var(--ink,#171a1f)}
+.footer-links{display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap;margin-top:12px}
+.footer-links a,.social-link{color:var(--green,#2f8063)!important;text-decoration:none!important;font-weight:800}
+.footer-links a{margin:0 3px}
+.social-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;padding:11px 17px;border:1px solid var(--line,#d9dfd8);border-radius:999px;background:rgba(47,128,99,.08);font-size:1.02em}
+.policy-content p,.disclaimer-card p{line-height:1.8;margin:0 0 14px}
+.policy-note{padding:12px 14px;border-left:3px solid var(--green,#2f8063);background:rgba(47,128,99,.07);border-radius:8px}
+.disclaimer-card{margin:22px 0;padding:20px;border:1px solid var(--line,#d9dfd8);border-radius:18px;background:rgba(47,128,99,.045);text-align:left}
+.disclaimer-card>span{font-size:.72em;font-weight:800;letter-spacing:.12em;color:var(--green,#2f8063)}
+.disclaimer-card h3{margin:8px 0 14px;color:var(--ink,#171a1f)}
+
+/* Footer */
+.footer{
+  padding:25px 18px calc(28px + env(safe-area-inset-bottom));
+  text-align:center;color:#9aa0aa;font-size:9.5px;
+}
+.footer strong{color:#111318}
+.footer .ph{font-size:13px;vertical-align:-2px;margin:0 2px}
+
+/* Hamburger menu */
+.menu-overlay{
+  position:fixed;inset:0;z-index:90;
+  background:rgba(10,11,14,.45);
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease;
+}
+.menu-overlay.open{opacity:1;pointer-events:auto;overscroll-behavior:contain}
+body.menu-locked{overflow:hidden!important;position:fixed;width:100%;touch-action:none}
+.menu-panel{overflow:hidden;overscroll-behavior:contain}
+.menu-list{overflow-y:auto;min-height:0;flex:1;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding-bottom:12px}
+.menu-list::-webkit-scrollbar{width:4px}
+.menu-list::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+.menu-panel{
+  position:absolute;top:0;right:0;height:100%;
+  width:78%;max-width:300px;
+  background:var(--bg);
+  box-shadow:-18px 0 40px rgba(0,0,0,.18);
+  transform:translateX(100%);
+  transition:transform .26s ease;
+  display:flex;flex-direction:column;
+  padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom));
+}
+.menu-overlay.open .menu-panel{transform:translateX(0)}
+.menu-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.menu-head span{font-family:Poppins,sans-serif;font-weight:800;font-size:15px}
+.menu-close{
+  width:34px;height:34px;border-radius:10px;border:1px solid var(--line);
+  background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--text);
+}
+.menu-list{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.menu-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 11px;border-radius:12px;
+  background:transparent;border:1px solid transparent;
+  color:var(--text);font-weight:700;font-size:13.5px;text-align:left;
+}
+.menu-item i{font-size:18px;color:var(--muted);width:20px;text-align:center}
+.menu-item:active{background:var(--surface)}
+.menu-item.active{background:var(--surface);border-color:var(--line)}
+.menu-item.active i{color:var(--text)}
+.menu-foot{
+  margin-top:auto;padding-top:14px;border-top:1px solid var(--line);
+  font-size:9px;color:var(--muted);text-align:center;line-height:1.5;
+}
+
+/* Dark mode */
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0d0f13;--surface:#15181e;--surface-2:#1d2129;
+    --text:#f1f3f6;--muted:#969daa;--line:#292e37;
+    --brand:#f1f3f6;
+  }
+  body{background:#07080a}
+  .header{background:rgba(13,15,19,.9);border-color:var(--line)}
+  .category,.feature,.ebook,.back,.detail-card,.menu-btn,.menu-close{box-shadow:none}
+  .badge,.tag,.description,.search-page{background:#1d2129;color:#9da4af}
+  .category-icon{background:#1d2129}
+  .footer strong{color:#fff}
+  .menu-panel{box-shadow:-18px 0 40px rgba(0,0,0,.5)}
+}
+
+/* Desktop */
+@media(min-width:700px){
+  .app{min-height:100vh}
+}
+
+.about-brand{padding:8px 2px}.about-kicker,.founder-card>span,.thanks-card>span{font-size:10px;letter-spacing:2px;font-weight:800;color:#478064}.about-brand>h2{font-family:Georgia,serif;font-size:29px;line-height:1.12;margin:10px 0}.about-brand>p,.about-grid p,.founder-card p,.thanks-card p{color:var(--muted);font-size:13px;line-height:1.75}.about-grid{display:grid;gap:12px;margin-top:20px}.about-grid section,.thanks-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px}.about-grid h3{margin:0 0 7px;font-size:15px}.about-grid p{margin:0}.founder-card{margin-top:14px;background:#171914;color:#fff;border-radius:18px;padding:22px}.founder-card>span{color:#b7cdbb}.founder-card h2{font-family:Georgia,serif;font-size:28px;margin:12px 0 0}.founder-card p{margin:5px 0;color:#c8cbc3}.founder-card blockquote{border-top:1px solid #41443c;padding-top:15px;margin:14px 0 0;color:#eadbb7;font-family:Georgia,serif;font-style:italic;font-size:18px}.thanks-card{margin-top:14px;border-color:#e1d8c5}.thanks-card h2{font-family:Georgia,serif;margin:10px 0}.thanks-card h3{color:#39765a;margin:0}.thanks-card em{color:var(--muted);font-size:12px}.about-tagline{text-align:center!important;color:var(--text)!important;font-family:Georgia,serif;font-size:18px!important;margin:24px 0 4px}.about-tagline small{font-family:Manrope,sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--muted)}
+.mentorship-modal{position:fixed;inset:0;z-index:120;background:rgba(10,12,10,.62);display:none;align-items:center;justify-content:center;padding:18px}.mentorship-modal.open{display:flex}.mentorship-box{width:min(100%,430px);max-height:88dvh;overflow:auto;background:var(--bg);color:var(--text);border-radius:24px;padding:24px;box-shadow:0 24px 80px #0004}.mentorship-top{display:flex;justify-content:space-between;gap:12px;align-items:start}.mentorship-box h2{font-family:Georgia,serif;font-size:27px;margin:8px 0}.mentorship-close{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text)}.price-pill{display:inline-block;background:#e3eee5;color:#286044;padding:8px 12px;border-radius:99px;font-weight:800;margin:12px 0}.mentorship-box ul{padding-left:20px;line-height:1.9;color:var(--muted);font-size:13px}.buy-now{display:flex;justify-content:center;align-items:center;gap:8px;background:#171914;color:white;text-decoration:none;padding:14px;border-radius:13px;font-weight:800;margin-top:15px}.buy-note{font-size:11px;color:var(--muted);line-height:1.6}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header class="header">
+  <div class="brand">
+    <div class="brand-left">
+      <img class="logo" src="data:image/webp;base64,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" alt="PREPTRON logo">
+      <div>
+        <div class="brand-name">PREPTRON</div>
+        <div class="brand-tag"> NAMOR knowledge library</div>
+      </div>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu"><i class="ph ph-list"></i></button>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<footer class="footer">
+  <div class="footer-top"><strong>PREPTRON</strong><span class="copyright"><b>© 2026</b></span></div>
+  <div class="footer-links"><a href="#" data-footer-page="about">About PREPTRON</a><span>·</span><a href="#" data-footer-page="contact">Contact</a><span>·</span><a href="#" data-footer-page="privacy">Privacy Policy</a></div>
+  <p class="footer-caption">PERSONAL MENTORSHIP · BOOKS · RESOURCES</p>
+  <a class="social-link" href="https://t.me/namorthisside" target="_blank" rel="noopener"><i class="ph ph-telegram-logo"></i> Join us on Telegram</a>
+</footer>
+
+</div>
+
+<!-- Hamburger side menu -->
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-panel">
+    <div class="menu-head">
+      <span>Menu</span>
+      <button class="menu-close" id="menuClose" aria-label="Close menu"><i class="ph ph-x"></i></button>
+    </div>
+    <div class="menu-list" id="menuList"></div>
+
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   PREPTRON V3 — BOOK DATA LOADER
+   Books now live in separate .js files next to Index.html:
+     data/jee.js  data/neet.js  data/board.js  data/testseries.js
+     data/psychology.js  data/selfimprovement.js
+   To add a book, edit only the matching file. Do not edit this part.
+   Image files: put covers where the "image" field points
+   (e.g. images/xyz.jpg or xyz.jpg next to Index.html). If a cover
+   is missing, a "Cover not available" placeholder is shown.
+========================================================= */
+const TELEGRAM_DEFAULT = "https://t.me/Namor16_BOT";
+window.EBOOKS_PARTS = {};
+</script>
+<script src="jee.js"></script>
+<script src="neet.js"></script>
+<script src="board.js"></script>
+<script src="testseries.js"></script>
+<script src="psychology.js"></script>
+<script src="selfimprovement.js"></script>
+<script src="defence.js"></script>
+<script>
+/* If a data file is missing or has a typo, only that category is skipped. */
+const EBOOKS = {};
+['jee', 'neet', 'board', 'other', 'psychology', 'selfimprovement', 'defence'].forEach(k => { if (window.EBOOKS_PARTS[k]) EBOOKS[k] = window.EBOOKS_PARTS[k]; });
+Object.assign(EBOOKS, {
+  mentorshipjee:{
+    title:"1:1 JEE Mentorship",
+    icon:"ph-graduation-cap",
+    subtitle:"Personal mentorship program for JEE aspirants",
+    books:[{id:"mentorship-jee",title:"Personal Mentorship Program — JEE",author:"PREPTRON",image:"",description:"One-to-one guidance for JEE preparation, study planning, doubt-solving and progress reviews. Contact PREPTRON on Telegram for program details and availability.",tags:["Mentorship","1:1","JEE"],telegramLink:TELEGRAM_DEFAULT}]
+  },
+  mentorshipneet:{
+    title:"1:1 NEET Mentorship",
+    icon:"ph-heartbeat",
+    subtitle:"Personal mentorship program for NEET aspirants",
+    books:[{id:"mentorship-neet",title:"Personal Mentorship Program — NEET",author:"PREPTRON",image:"",description:"One-to-one guidance for NEET preparation, study planning, doubt-solving and progress reviews. Contact PREPTRON on Telegram for program details and availability.",tags:["Mentorship","1:1","NEET"],telegramLink:TELEGRAM_DEFAULT}]
+  }
+});
+</script>
+<script>
+
+/* ---------------- MENU ---------------- */
+const MENU_ITEMS = [
+  {section:"PRODUCT"},
+  {id:"mentorshipjee",label:"Personal Mentorship — JEE",icon:"ph-graduation-cap"},
+  {id:"mentorshipneet",label:"Personal Mentorship — NEET",icon:"ph-heartbeat"},
+  {section:"RESOURCES"},
+  {id:"home",label:"Books & Study Resources",icon:"ph-books"},
+  {id:"jee",label:"JEE Books",icon:"ph-book-open"},
+  {id:"neet",label:"NEET Books",icon:"ph-heartbeat"},
+  {id:"board",label:"12th Board",icon:"ph-exam"},
+  {id:"other",label:"Test Series",icon:"ph-atom"},
+  {id:"psychology",label:"Psychology",icon:"ph-brain"},
+  {id:"selfimprovement",label:"Self Improvement",icon:"ph-trend-up"},
+  {id:"defence",label:"Defence",icon:"ph-planet"},
+  {section:"COMPANY"},
+  {id:"about",label:"About PREPTRON",icon:"ph-buildings"},
+  {id:"contact",label:"Contact",icon:"ph-envelope"},
+  {id:"privacy",label:"Privacy Policy",icon:"ph-shield-check"}
+];
+
+let state = {
+  page:"home",
+  category:null,
+  type:null,
+  book:null,
+  query:""
+};
+
+const main = document.getElementById("main");
+const menuOverlay = document.getElementById("menuOverlay");
+const menuList = document.getElementById("menuList");
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
+
+function getCategory(){
+  return state.category ? EBOOKS[state.category] : null;
+}
+
+/* JEE and NEET have a "types" object (Module, Standard Book, PYQ, ...).
+   Every other category shows its "books" array directly. */
+function getTypeGroup(){
+  const c = getCategory();
+  return c && c.types && state.type ? c.types[state.type] : null;
+}
+
+function getBook(){
+  const c = getCategory();
+  if(!c) return null;
+  if(c.types){
+    const t = getTypeGroup();
+    return t && state.book ? t.books.find(b => b.id === state.book) : null;
+  }
+  return state.book ? c.books.find(b => b.id === state.book) : null;
+}
+
+/* Flat list of every book in a category, whichever shape it uses. */
+function allBooksOfCategory(c){
+  if(c.types) return Object.entries(c.types).flatMap(([tid,t])=>t.books.map(b=>({...b,__type:tid})));
+  return c.books.map(b=>({...b,__type:null}));
+}
+function categoryBookCount(c){
+  return c.types ? Object.values(c.types).reduce((n,t)=>n+t.books.length,0) : c.books.length;
+}
+
+function placeholder(title, category="PREPTRON"){
+  return `
+    <div class="cover-placeholder">
+      <small>${escapeHTML(category)}</small>
+      <strong>${escapeHTML(title)}</strong>
+      <span>Cover not available</span>
+    </div>`;
+}
+
+function coverHTML(book, detail=false){
+  const cls = detail ? "detail-cover" : "cover";
+  if(book.image){
+    return `<div class="${cls}">
+      <img src="${escapeHTML(book.image)}" alt="${escapeHTML(book.title)}" onerror="handleCoverError(this)">
+    </div>`;
+  }
+  return `<div class="${cls}">${placeholder(book.title)}</div>`;
+}
+
+/* Called by an <img>'s onerror. Kept as a plain global function
+   (instead of inlining HTML into the onerror attribute) so a book
+   title with quotes, newlines or an em-dash can never break the
+   generated JavaScript. */
+window.handleCoverError = function(img){
+  img.parentElement.innerHTML = placeholder(img.getAttribute("alt") || "");
+};
+
+/* ---------------- NAVIGATION ---------------- */
+function goHome(){
+  state={page:"home",category:null,type:null,book:null,query:""};
+  render();
+}
+
+function openCategory(id){
+  state={page:"category",category:id,type:null,book:null,query:""};
+  render();
+}
+
+function openType(id){
+  state.page="type";
+  state.type=id;
+  state.book=null;
+  render();
+}
+
+function openBook(id){
+  state.page="book";
+  state.book=id;
+  render();
+}
+
+function openPrivacy(){
+  state.page="privacy";
+  render();
+}
+
+function downloadBook(book){
+  const url = book.telegramLink || TELEGRAM_DEFAULT;
+  window.open(url,"_blank","noopener,noreferrer");
+}
+
+/* ---------------- BREADCRUMB ---------------- */
+function crumbHTML(items){
+  return `<div class="crumb">${items.map((it,i)=>{
+    const sep = i>0 ? '<span class="sep">›</span>' : '';
+    if(it.nav){
+      return `${sep}<span class="seg" data-crumb="${i}">${escapeHTML(it.label)}</span>`;
+    }
+    return `${sep}<span class="seg current">${escapeHTML(it.label)}</span>`;
+  }).join("")}</div>`;
+}
+
+function wireCrumb(items){
+  main.querySelectorAll(".seg[data-crumb]").forEach(el=>{
+    const idx = +el.dataset.crumb;
+    el.onclick = items[idx].nav;
+  });
+}
+
+/* ---------------- MENU ---------------- */
+function isMenuActive(id){
+  if(id==="home") return state.page==="home";
+  if(["privacy","about","contact"].includes(id)) return state.page===id;
+  if(id==="home") return state.page==="home";
+  return (state.page==="category"||state.page==="type"||state.page==="book") && state.category===id;
+}
+
+function renderMenu(){
+  menuList.innerHTML = MENU_ITEMS.map(m=>m.section
+    ? `<div class="menu-section">${m.section}</div>`
+    : `<button class="menu-item ${isMenuActive(m.id)?"active":""}" data-menu="${m.id}">
+      <i class="ph ${m.icon}"></i> ${m.label}
+    </button>`).join("");
+
+  menuList.querySelectorAll("[data-menu]").forEach(btn=>{
+    btn.onclick = ()=>{
+      const id = btn.dataset.menu;
+      closeMenu();
+      if(id==="home") goHome();
+      else if(["privacy","about","contact"].includes(id)) openInfo(id);
+      else openCategory(id);
+    };
+  });
+}
+
+let menuScrollY = 0;
+function openMenu(){
+  if(menuOverlay.classList.contains("open")) return;
+  menuScrollY = window.scrollY || window.pageYOffset;
+  document.body.classList.add("menu-locked");
+  document.body.style.top = `-${menuScrollY}px`;
+  menuOverlay.classList.add("open");
+  renderMenu();
+  document.getElementById("menuClose").focus({preventScroll:true});
+}
+function closeMenu(){
+  if(!menuOverlay.classList.contains("open")) return;
+  menuOverlay.classList.remove("open");
+  document.body.classList.remove("menu-locked");
+  document.body.style.top = "";
+  window.scrollTo({top:menuScrollY,behavior:"instant"});
+}
+
+document.getElementById("menuBtn").onclick = openMenu;
+document.getElementById("menuClose").onclick = closeMenu;
+menuOverlay.onclick = (e)=>{ if(e.target===menuOverlay) closeMenu(); };
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && menuOverlay.classList.contains("open")) closeMenu(); });
+// Keep touch gestures inside the open drawer so the page behind it never moves.
+menuOverlay.addEventListener("touchmove", e=>{
+  if(!e.target.closest(".menu-list")) e.preventDefault();
+},{passive:false});
+
+/* ---------------- EBOOK CARDS ---------------- */
+function ebookCard(book,i=0){
+  return `
+    <article class="ebook" data-book-card="${escapeHTML(book.id)}" style="animation-delay:${i*0.05}s">
+      <div class="cover-wrap">${coverHTML(book)}</div>
+      <div class="ebook-body">
+        <div class="ebook-title">${escapeHTML(book.title)}</div>
+        <div class="ebook-author">${escapeHTML(book.author)}</div>
+        <div class="ebook-meta">
+          <span class="badge">${escapeHTML(book.tags[0] || "EBOOK")}</span>
+          <button class="download-mini" title="Download via Telegram" data-download="${escapeHTML(book.id)}">
+            <i class="ph ph-download-simple"></i>
+          </button>
+        </div>
+      </div>
+    </article>`;
+}
+
+/* Wires an .ebook-grid: click anywhere on a card opens it,
+   click the download button downloads instead (no navigation). */
+function wireEbookGrid(findBook, onOpen){
+  main.querySelectorAll("[data-book-card]").forEach(el=>{
+    el.onclick = (e)=>{
+      if(e.target.closest("[data-download]")) return;
+      onOpen(el.dataset.bookCard);
+    };
+  });
+  main.querySelectorAll("[data-download]").forEach(btn=>{
+    btn.onclick = (e)=>{
+      e.stopPropagation();
+      const book = findBook(btn.dataset.download);
+      if(book) downloadBook(book);
+    };
+  });
+}
+
+/* ---------------- PAGES ---------------- */
+function renderHome(){
+  const categories = Object.entries(EBOOKS).filter(([id]) => !id.startsWith("mentorship"));
+
+  main.innerHTML = `
+    <section class="hero">
+      <div class="eyebrow"><i class="ph ph-sparkle"></i> ONE TEAM · ONE PREPARATION HUB</div>
+      <h1>Prepare smarter with <span style="color:#2f8063">PREPTRON</span>.</h1>
+      <p>Books, focused resources and personal 1:1 mentorship for JEE and NEET — everything you need to move forward with clarity.</p>
+
+      <label class="search">
+        <i class="ph ph-magnifying-glass"></i>
+        <input id="globalSearch" placeholder="Search ebooks or categories..." value="${escapeHTML(state.query)}">
+      </label>
+    </section>
+
+    <div class="section-title">
+      <h2>Explore PREPTRON</h2>
+      <span>${categories.length} collections</span>
+    </div>
+
+    <div class="categories" id="categories">
+      ${categories.map(([id,c],i)=>`
+        <button class="category" data-category="${id}" style="animation-delay:${i*0.05}s">
+          <div class="category-top">
+            <div class="category-icon"><i class="ph ${c.icon}"></i></div>
+            <i class="ph ph-arrow-up-right category-arrow"></i>
+          </div>
+          <h3>${escapeHTML(c.title)}</h3>
+          <p>${escapeHTML(c.subtitle)}</p>
+          <span class="count">${categoryBookCount(c)} ebooks</span>
+        </button>
+      `).join("")}
+    </div>
+
+  `;
+
+  document.querySelectorAll("[data-category]").forEach(el=>{
+    el.onclick=()=>openCategory(el.dataset.category);
+  });
+
+  const input=document.getElementById("globalSearch");
+  input.oninput=()=>{
+    // Hand off to the dedicated search page, which keeps its own
+    // search box alive so typing never gets interrupted.
+    if(input.value.trim()){
+      renderSearch(input.value);
+    }
+  };
+}
+
+function renderSearch(initialQuery){
+  state.page="search";
+  state.query=initialQuery||"";
+
+  const crumbItems=[{label:"Home",nav:goHome},{label:"Search"}];
+
+  main.innerHTML=`
+    <div class="page-head">
+      <button class="back" id="back"><i class="ph ph-arrow-left"></i></button>
+      <div class="page-title"><h1>Search</h1><p>Find any ebook or category</p></div>
+    </div>
+    ${crumbHTML(crumbItems)}
+    <label class="search-page">
+      <i class="ph ph-magnifying-glass"></i>
+      <input id="searchInput" placeholder="Search ebooks or categories..." value="${escapeHTML(state.query)}">
+    </label>
+    <div id="searchResults"></div>
+  `;
+
+  wireCrumb(crumbItems);
+  document.getElementById("back").onclick=goHome;
+
+  const input=document.getElementById("searchInput");
+  const resultsEl=document.getElementById("searchResults");
+
+  function runSearch(query){
+    state.query=query;
+    const q=query.trim().toLowerCase();
+
+    if(!q){
+      resultsEl.innerHTML=`<div class="empty"><i class="ph ph-magnifying-glass"></i><p>Start typing to search the library.<br>Results will show up right here.</p></div>`;
+      return;
+    }
+
+    const results=[];
+    Object.entries(EBOOKS).forEach(([cid,c])=>{
+      allBooksOfCategory(c).forEach(b=>{
+        const hay=[c.title,b.title,b.author,b.description,...b.tags].join(" ").toLowerCase();
+        if(hay.includes(q)) results.push({cid,book:b});
+      });
+    });
+
+    resultsEl.innerHTML = results.length ? `
+      <div class="section-title" style="margin-top:0">
+        <h2>Results</h2>
+        <span>${results.length} found</span>
+      </div>
+      <div class="ebook-grid">
+        ${results.map((r,i)=>ebookCard(r.book,i)).join("")}
+      </div>
+    ` : `<div class="empty"><i class="ph ph-magnifying-glass"></i><p>No ebooks found for “${escapeHTML(query)}”.<br>Try another title, author or category.</p></div>`;
+
+    wireEbookGrid(
+      id => results.find(r=>r.book.id===id)?.book,
+      id => openSearchBook(id)
+    );
+  }
+
+  input.oninput = ()=> runSearch(input.value);
+  runSearch(state.query);
+
+  // Keep focus in the box and put the cursor at the end so the
+  // person can carry on typing right where they left off.
+  input.focus();
+  const v = input.value;
+  input.value = "";
+  input.value = v;
+}
+
+function openSearchBook(id){
+  for(const [cid,c] of Object.entries(EBOOKS)){
+    if(c.types){
+      for(const [tid,t] of Object.entries(c.types)){
+        if(t.books.some(b=>b.id===id)){
+          state.category=cid;state.type=tid;state.book=id;state.page="book";
+          render();
+          return;
+        }
+      }
+    } else if(c.books.some(b=>b.id===id)){
+      state.category=cid;state.type=null;state.book=id;state.page="book";
+      render();
+      return;
+    }
+  }
+}
+
+function renderCategory(){
+  const c=getCategory();
+  const crumbItems=[{label:"Home",nav:goHome},{label:c.title}];
+
+  /* Categories with a "types" object (JEE / NEET) show a
+     "Choose an Ebook" screen of type categories first
+     (Module, Standard Book, PYQ, ...). Categories without it
+     (12th Board, Other, Psychology, Self Improvement) show
+     their books straight away. */
+  if(c.types){
+    const typeEntries=Object.entries(c.types);
+
+    main.innerHTML=`
+      <div class="page-head">
+        <button class="back" id="back"><i class="ph ph-arrow-left"></i></button>
+        <div class="page-title">
+          <h1><i class="ph ${c.icon}"></i> ${escapeHTML(c.title)}</h1>
+          <p>${escapeHTML(c.subtitle)}</p>
+        </div>
+      </div>
+      ${crumbHTML(crumbItems)}
+
+      <div class="section-title"><h2>Choose an Ebook</h2><span>${typeEntries.length} categories</span></div>
+
+      <div class="categories">
+        ${typeEntries.map(([id,t],i)=>`
+          <button class="category" data-type="${id}" style="animation-delay:${i*0.05}s">
+            <div class="category-top">
+              <div class="category-icon"><i class="ph ${t.icon}"></i></div>
+              <i class="ph ph-arrow-up-right category-arrow"></i>
+            </div>
+            <h3>${escapeHTML(t.title)}</h3>
+            <p>${escapeHTML(t.subtitle)}</p>
+            <span class="count">${t.books.length} ebook${t.books.length===1?"":"s"}</span>
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    wireCrumb(crumbItems);
+    document.getElementById("back").onclick=goHome;
+    document.querySelectorAll("[data-type]").forEach(el=>{
+      el.onclick=()=>openType(el.dataset.type);
+    });
+    return;
+  }
+
+  main.innerHTML=`
+    <div class="page-head">
+      <button class="back" id="back"><i class="ph ph-arrow-left"></i></button>
+      <div class="page-title">
+        <h1><i class="ph ${c.icon}"></i> ${escapeHTML(c.title)}</h1>
+        <p>${escapeHTML(c.subtitle)}</p>
+      </div>
+    </div>
+    ${crumbHTML(crumbItems)}
+
+    <div class="section-title">
+      <h2>Ebooks</h2>
+      <span>${c.books.length} available</span>
+    </div>
+
+    ${c.books.length ? `
+      <div class="ebook-grid">
+        ${c.books.map((b,i)=>ebookCard(b,i)).join("")}
+      </div>
+    ` : `<div class="empty"><i class="ph ph-books"></i><p>No ebooks added yet.<br>Add them inside the EBOOKS object.</p></div>`}
+  `;
+
+  wireCrumb(crumbItems);
+  document.getElementById("back").onclick=goHome;
+  wireEbookGrid(id => c.books.find(b=>b.id===id), openBook);
+}
+
+function renderType(){
+  const c=getCategory(), t=getTypeGroup();
+  if(!t){ openCategory(state.category); return; }
+
+  const crumbItems=[
+    {label:"Home",nav:goHome},
+    {label:c.title,nav:()=>openCategory(state.category)},
+    {label:t.title}
+  ];
+
+  main.innerHTML=`
+    <div class="page-head">
+      <button class="back" id="back"><i class="ph ph-arrow-left"></i></button>
+      <div class="page-title">
+        <h1>${escapeHTML(t.title)}</h1>
+        <p>${escapeHTML(c.title)} · ${escapeHTML(t.subtitle)}</p>
+      </div>
+    </div>
+    ${crumbHTML(crumbItems)}
+
+    <div class="section-title">
+      <h2>Ebooks</h2>
+      <span>${t.books.length} available</span>
+    </div>
+
+    ${t.books.length ? `
+      <div class="ebook-grid">
+        ${t.books.map((b,i)=>ebookCard(b,i)).join("")}
+      </div>
+    ` : `<div class="empty"><i class="ph ph-books"></i><p>No ebooks added yet in this category.<br>Add them inside the EBOOKS object.</p></div>`}
+  `;
+
+  wireCrumb(crumbItems);
+  document.getElementById("back").onclick=()=>openCategory(state.category);
+  wireEbookGrid(id => t.books.find(b=>b.id===id), openBook);
+}
+
+function renderBook(){
+  const c=getCategory(), t=getTypeGroup(), b=getBook();
+  if(!b){
+    if(c && c.types && state.type) openType(state.type);
+    else openCategory(state.category);
+    return;
+  }
+
+  const crumbItems=[
+    {label:"Home",nav:goHome},
+    {label:c.title,nav:()=>openCategory(state.category)},
+    ...(t ? [{label:t.title,nav:()=>openType(state.type)}] : []),
+    {label:b.title}
+  ];
+
+  main.innerHTML=`
+    <div class="page-head">
+      <button class="back" id="back"><i class="ph ph-arrow-left"></i></button>
+      <div class="page-title">
+        <h1>${escapeHTML(c.title)}</h1>
+        <p>${t ? escapeHTML(t.title) + " · " : ""}Ebook</p>
+      </div>
+    </div>
+    ${crumbHTML(crumbItems)}
+
+    <article class="detail-card">
+      ${coverHTML(b,true)}
+      <div class="detail-info">
+        <h1>${escapeHTML(b.title)}</h1>
+        <div class="author">by ${escapeHTML(b.author)}</div>
+
+        <div class="tags">
+          ${b.tags.map(tg=>`<span class="tag">${escapeHTML(tg)}</span>`).join("")}
+        </div>
+
+        <div class="description">${escapeHTML(b.description)}</div>
+
+        <button class="download-btn" id="download">
+          <i class="ph ph-telegram-logo"></i>
+          Download Ebook
+        </button>
+
+      </div>
+    </article>
+  `;
+
+  wireCrumb(crumbItems);
+  document.getElementById("back").onclick=()=>{ t ? openType(state.type) : openCategory(state.category); };
+  document.getElementById("download").onclick=()=>downloadBook(b);
+}
+
+function renderPrivacy(){
+  const crumbItems=[{label:"Home",nav:goHome},{label:"Privacy Policy"}];
+
+  main.innerHTML=`
+    <div class="page-head">
+      <button class="back" id="back"><i class="ph ph-arrow-left"></i></button>
+      <div class="page-title">
+        <h1>Privacy Policy</h1>
+        <p>How PREPTRON handles your data</p>
+      </div>
+    </div>
+    ${crumbHTML(crumbItems)}
+
+    <article class="detail-card" style="text-align:left">
+      <div class="description">
+        <p><strong>What we collect.</strong> PREPTRON does not require sign-up or accounts. Browsing categories and ebooks, and using search, all happen inside this page without any personal information being collected.</p>
+        <p><strong>Downloads.</strong> Tapping "Download Ebook" opens a Telegram link in a new tab. Once you leave this page for Telegram, Telegram's own privacy policy and terms apply to anything that happens there.</p>
+        <p><strong>Cookies & storage.</strong> This library does not use cookies or local storage to track visitors or remember activity between visits.</p>
+        <p><strong>Third-party links.</strong> Ebook covers and download destinations may point to files or channels PREPTRON does not control. Review the source before downloading anything.</p>
+        <p><strong>Changes.</strong> This policy may be updated as the library grows. Check back here for the latest version.</p>
+        <p><strong>Contact.</strong> For privacy questions about this library, reach out through the Telegram channel linked on any ebook page.</p>
+      </div>
+    </article>
+  `;
+
+  wireCrumb(crumbItems);
+  document.getElementById("back").onclick=goHome;
+}
+
+function openInfo(id){ state.page=id; render(); }
+function renderInfo(){
+  const isAbout=state.page==="about";
+  const title=isAbout?"About PREPTRON":state.page==="contact"?"Contact PREPTRON":"Privacy Policy";
+  const body=isAbout
+    ? `<div class="about-brand"><span class="about-kicker">OUR PURPOSE</span><h2>Your preparation deserves a better direction.</h2><p>PREPTRON is a focused learning platform for JEE and NEET aspirants, bringing useful study resources and personalised guidance together in one place.</p><div class="about-grid"><section><h3>Learning Resources</h3><p>Explore organised books, study notes and revision resources to support a clearer, more structured preparation journey.</p></section><section><h3>Personalised Guidance</h3><p>Discover 1:1 mentorship options focused on study planning, academic improvement, backlog coverage and consistent progress.</p></section><section><h3>Built on Clarity & Trust</h3><p>We aim to make preparation more focused through accessible resources, transparent information and a student-first approach.</p></section></div><section class="founder-card"><span>THE PERSON BEHIND PREPTRON</span><h2>NAMOR</h2><p>Founder &amp; Developer</p><blockquote>“Head down, just your hard work.”</blockquote></section><section class="thanks-card"><span>A NOTE OF GRATITUDE</span><h2>Special Thanks <i class="ph ph-cheers"></i> </h2><h3>Wani <i class="ph ph-planet"></i></h3><p>With sincere gratitude to Wani, my mentor, for the guidance, encouragement and support that have been part of this journey.</p><em>Some people guide your journey and leave a lasting mark on it.</em></section>
+<p class="about-tagline">Study with clarity. Prepare with purpose.<br><small>PREPTRON · JEE &amp; NEET</small></p></div>`
+    : state.page==="contact"
+    ? `<p>Want to know more about the Personal Mentorship Program 1:1 or need help finding a resource?</p><p>Reach out to PREPTRON through Telegram for program details and support.</p><a class="download-btn" href="https://t.me/Namor16_BOT" target="_blank" rel="noopener" style="text-decoration:none"><i class="ph ph-telegram-logo"></i> Contact on Telegram</a>`
+     : `<div class="policy-content">
+<p><strong>Effective date: 12 October 2026</strong></p>
+<p><strong> About this policy.</strong> This Privacy Policy explains how PREPTRON presents educational resources, book listings and mentorship information. We aim to keep browsing simple and to be transparent about external links and the limits of this independent resource platform.</p>
+ 
+<h2 class="policy-section-title">Educational Use &amp; Rights</h2>
+<p><strong>Disclaimer &amp; Content Removal.</strong> PREPTRON is an independent educational resource and mentorship information platform created to help learners discover study material and prepare with greater structure. Content, titles, covers, excerpts and resource references may belong to their respective authors, publishers, educators, institutes or other copyright holders. Nothing on this website is intended to claim ownership of third-party intellectual property or impersonate any institution.</p>
+<p>Resources are shared or referenced for educational support and, where applicable, under a good-faith fair-use rationale. “Fair use” does not automatically make every use lawful in every jurisdiction; users should respect local copyright rules, licence terms and original-source conditions. Please purchase official editions where required and verify material before relying on it.</p>
+<p><strong>Disclaimer:</strong> This content is provided for educational support. All rights remain with their respective creators, authors, publishers and institutes. PREPTRON does not guarantee the completeness, accuracy or continued availability of third-party resources.</p>
+<p>If you own or represent content listed here and would like it reviewed, corrected or removed, contact <strong><a href="https://t.me/Namor16_Bot" target="_blank" rel="noopener">@Namor16_Bot</a></strong> on Telegram. Include the page or resource link, identify the material, explain your relationship to the rights and describe the requested action. We will review genuine requests and take appropriate action as reasonably practicable.</p>
+ </p></div>`;
+  main.innerHTML=`<div class="page-head"><button class="back" id="back"><i class="ph ph-arrow-left"></i></button><div class="page-title"><h1>${title}</h1><p>PREPTRON · JEE & NEET · Books & Resources</p></div></div><article class="detail-card"><div class="description">${body}</div></article>`;
+  document.getElementById("back").onclick=goHome;
+}
+document.addEventListener("click",e=>{const a=e.target.closest("[data-footer-page]");if(a){e.preventDefault();openInfo(a.dataset.footerPage);}});
+
+function render(){
+  window.scrollTo({top:0,behavior:"instant"});
+  if(state.page==="home")renderHome();
+  else if(state.page==="category")renderCategory();
+  else if(state.page==="type")renderType();
+  else if(state.page==="book")renderBook();
+  else if(["privacy","about","contact"].includes(state.page))renderInfo();
+  else if(state.page==="search")renderSearch(state.query);
+  else renderHome();
+
+  if(menuOverlay.classList.contains("open")) renderMenu();
+}
+
+render();
+</script>
+<div class="mentorship-modal" id="mentorshipModal" role="dialog" aria-modal="true" aria-labelledby="mentorshipTitle">
+  <section class="mentorship-box"><div class="mentorship-top"><div><span class="about-kicker">PREPTRON · JEE &amp; NEET</span><h2 id="mentorshipTitle">Personal Mentorship Program 1:1</h2></div><button class="mentorship-close" id="mentorshipClose" aria-label="Close"><i class="ph ph-x"></i></button></div>
+  <div class="price-pill">₹99 · Program access</div><p>Personalised support to help you prepare with more structure and clarity.</p><ul><li>Mental health enhancement</li><li>Academic enhancement</li><li>Backlog covering strategy</li><li>Daily tracking &amp; analytics</li><li>Get strategy directly from NAMOR</li></ul>
+  <a class="buy-now" id="buyNow" href="https://t.me/Namor16_BOT" target="_blank" rel="noopener"><i class="ph ph-telegram-logo"></i> BUY NOW</a></section>
+</div>
+<script>
+(function(){
+ const modal=document.getElementById('mentorshipModal');
+ const close=()=>modal.classList.remove('open');
+ document.getElementById('mentorshipClose').addEventListener('click',close);
+ modal.addEventListener('click',e=>{if(e.target===modal)close()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+ const originalOpenCategory=window.openCategory;
+ // Route the JEE/NEET mentorship menu items to the designed program popup.
+ document.addEventListener('click',e=>{
+   const item=e.target.closest('[data-menu]'); if(!item)return;
+   const id=item.dataset.menu;
+   if(id==='mentorshipjee'||id==='mentorshipneet'){
+     e.preventDefault(); e.stopImmediatePropagation();
+     if(typeof closeMenu==='function')closeMenu();
+     document.getElementById('mentorshipTitle').textContent='Personal Mentorship Program 1:1 — '+(id==='mentorshipjee'?'JEE':'NEET');
+     const message='Hi NAMOR, I want to purchase the PREPTRON Personal Mentorship Program 1:1 for '+(id==='mentorshipjee'?'JEE':'NEET')+'. Price: ₹99. My Telegram name: [please enter your name]. Please share the next steps.';
+     document.getElementById('buyNow').href='https://t.me/Namor16_BOT?start='+encodeURIComponent(message);
+     modal.classList.add('open');
+   }
+ },true);
+})();
+</script>
+</body>
+</html>
